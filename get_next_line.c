@@ -6,11 +6,14 @@
 /*   By: edehmlow <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 21:58:54 by edehmlow          #+#    #+#             */
-/*   Updated: 2018/07/24 22:30:14 by edehmlow         ###   ########.fr       */
+/*   Updated: 2018/07/25 01:49:10 by edehmlow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int get_next_line(const int fd, char **line)
 {
+	int	rd;
+
+	rd = read(fd, , 0);
 	return (0);
 }
