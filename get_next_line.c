@@ -6,7 +6,7 @@
 /*   By: edehmlow <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 21:58:54 by edehmlow          #+#    #+#             */
-/*   Updated: 2018/08/03 00:29:12 by edehmlow         ###   ########.fr       */
+/*   Updated: 2018/08/03 01:21:10 by edehmlow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_next_line(const int fd, char **line)
 		while (!(ptr = ft_strchr(a[fd], '\n')) && read(fd, buff, BUFF_SIZE))
 		{
 			read(fd, buff, BUFF_SIZE);
-			a[fd] == ft_strjoin(a[fd], buff);
+			a[fd] = ft_strjoin(a[fd], buff);
 		}
 		if (ptr = ft_strchr(a[fd], '\n'))
 		{
