@@ -6,7 +6,7 @@
 /*   By: edehmlow <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 21:58:54 by edehmlow          #+#    #+#             */
-/*   Updated: 2018/08/05 21:28:21 by edehmlow         ###   ########.fr       */
+/*   Updated: 2018/08/07 00:07:22 by edehmlow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	get_next_line(const int fd, char **line)
 	{
 		if (!(a[fd] = (char *)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1))))
 			return (-1);
-		if (!(read(fd, a[fd], BUFF_SIZE)))
-			return(0);
+		if (!read(fd, a[fd], BUFF_SIZE))
+			return (0);
 	}
 	while (!(ptr = ft_strchr(a[fd], '\n')) && read(fd, buff, BUFF_SIZE))
 	{
@@ -36,16 +36,25 @@ int	get_next_line(const int fd, char **line)
 			return (-1);
 		ft_strdel(&temp);
 	}
-	if ((ptr = ft_strchr(a[fd], '\n')))
+	if (ptr)
 	{
 		if (!(*line = ft_strndup(a[fd], ptr - a[fd])))
 			return (-1);
-		ptr++;
-		if (!(a[fd] = ft_strdup(ptr)))
-			return (-1);
+		if (!(*(ptr + 1)))
+			ft_strdel(&a[fd]);
+		else
+		{
+			if (!(a[fd] = ft_strdup(ptr + 1)))
+				return (-1);
+		}
+		read(fd, buff, BUFF_SIZE);
+		temp = a[fd];
+		if (!(a[fd] = ft_strjoin(a[fd], buff)))
+			return (2);
+		ft_strdel(&temp);
 		return (1);
 	}
 	*line = ft_strdup(a[fd]);
 	ft_strdel(&a[fd]);
-	return(1);
+	return (1);
 }
