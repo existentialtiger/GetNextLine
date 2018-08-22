@@ -6,7 +6,7 @@
 /*   By: edehmlow <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 13:00:17 by edehmlow          #+#    #+#             */
-/*   Updated: 2018/08/21 17:06:33 by edehmlow         ###   ########.fr       */
+/*   Updated: 2018/08/21 19:30:32 by edehmlow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_next_line(const int fd, char **line)
 
 	if (fd > FD_MAX || fd < 0 || !line)
 		return (-1);
-	ft_bzero(buff, BUFF_SIZE);
+	ft_bzero(buff, BUFF_SIZE + 1);
 	if (!a[fd])
 	{
 		if (!(a[fd] = (char *)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1))))
@@ -41,7 +41,7 @@ int	get_next_line(const int fd, char **line)
 	{
 		if (a[fd][0] == *ptr)
 		{
-			*line = "\n";
+			*line = ft_strdup("\n");
 			ptr++;
 			temp = a[fd];
 			a[fd] = ft_strdup(ptr);
