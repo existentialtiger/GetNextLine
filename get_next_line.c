@@ -6,7 +6,7 @@
 /*   By: edehmlow <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 13:00:17 by edehmlow          #+#    #+#             */
-/*   Updated: 2018/08/21 22:24:27 by edehmlow         ###   ########.fr       */
+/*   Updated: 2018/08/21 23:14:47 by edehmlow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,9 @@ int	get_next_line(const int fd, char **line)
 	if ((ptr = ft_strchr(a[fd], '\n')))
 	{
 		if (a[fd][0] == *ptr)
-		{
 			*line = ft_strdup("");
-			ptr++;
-			temp = a[fd];
-			a[fd] = ft_strdup(ptr);
-			ft_strdel(&temp);
-			return (1);
-		}
-		*line = ft_strndup(a[fd], ptr - a[fd]);
+		else
+			*line = ft_strndup(a[fd], ptr - a[fd]);
 		ptr++;
 		temp = a[fd];
 		a[fd] = ft_strdup(ptr);
