@@ -6,37 +6,17 @@
 /*   By: edehmlow <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/21 13:00:17 by edehmlow          #+#    #+#             */
-/*   Updated: 2018/08/21 23:14:47 by edehmlow         ###   ########.fr       */
+/*   Updated: 2018/08/22 16:05:33 by edehmlow         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	get_next_line(const int fd, char **line)
+int	set_line(char **a, char **line, const int fd)
 {
-	static char	*a[FD_MAX];
-	char		buff[BUFF_SIZE + 1];
-	int			check;
 	char		*ptr;
 	char		*temp;
 
-	if (fd > FD_MAX || fd < 0 || !line)
-		return (-1);
-	ft_bzero(buff, BUFF_SIZE + 1);
-	if (!a[fd])
-	{
-		if (!(a[fd] = (char *)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1))))
-			return (-1);
-	}
-	while ((chk_for_char(a[fd], '\n') < 0) && (check = read(fd, buff, BUFF_SIZE)))
-	{
-		if (check < 0)
-			return (-1);
-		temp = a[fd];
-		a[fd] = ft_strjoin(a[fd], buff);
-		ft_strdel(&temp);
-		ft_bzero(buff, BUFF_SIZE);
-	}
 	if ((ptr = ft_strchr(a[fd], '\n')))
 	{
 		if (a[fd][0] == *ptr)
@@ -55,5 +35,34 @@ int	get_next_line(const int fd, char **line)
 		ft_strdel(&a[fd]);
 		return (1);
 	}
+	return (0);
+}
+
+int	get_next_line(const int fd, char **line)
+{
+	static char	*a[FD_MAX];
+	char		buff[BUFF_SIZE + 1];
+	int			chk;
+	char		*temp;
+
+	if (fd > FD_MAX || fd < 0 || !line)
+		return (-1);
+	ft_bzero(buff, BUFF_SIZE + 1);
+	if (!a[fd])
+	{
+		if (!(a[fd] = (char *)ft_memalloc(sizeof(char) * (BUFF_SIZE + 1))))
+			return (-1);
+	}
+	while ((chk_for_char(a[fd], '\n') < 0) && (chk = read(fd, buff, BUFF_SIZE)))
+	{
+		if (chk < 0)
+			return (-1);
+		temp = a[fd];
+		a[fd] = ft_strjoin(a[fd], buff);
+		ft_strdel(&temp);
+		ft_bzero(buff, BUFF_SIZE);
+	}
+	if (set_line(a, line, fd))
+		return (1);
 	return (0);
 }
